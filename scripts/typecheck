@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+MINIAPP_DIR="$ROOT_DIR/app/miniapp"
+source "$ROOT_DIR/scripts/_common.sh"
+
+if [[ -f "$MINIAPP_DIR/package.json" ]]; then
+  echo "[typecheck] running miniapp typecheck"
+  (
+    cd "$MINIAPP_DIR"
+    run_pnpm "[typecheck] pnpm is required for the miniapp but was not found in PATH." typecheck
+  )
+else
+  echo "[typecheck] miniapp project not initialized yet"
+fi
+
+echo "[typecheck] done"

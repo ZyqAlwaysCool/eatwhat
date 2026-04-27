@@ -1,0 +1,43 @@
+project:
+  name: sample-project
+  stack: taro-react-fastapi
+  app_root: app
+  test_root: tests
+  docs_root: docs
+
+policy:
+  auto_commit: false
+  require_docs_for_new_module: true
+  require_tests_for_public_api: true
+  require_explanatory_comments_for_complex_logic: true
+  allow_agent_edit_scripts: true
+  allow_agent_propose_app_structure: true
+
+quality_gate:
+  default_command: ./scripts/check
+  run_lint: true
+  run_test: true
+  run_typecheck: true
+  run_smoke: false
+  require_green_before_handoff: true
+
+docs:
+  current_root: docs/current
+  adr_root: docs/adr
+  worklog_root: docs/worklog
+  archive_root: docs/archive
+  manifest_path: docs/manifest.yaml
+  require_manifest_for_key_docs: true
+
+human_review:
+  require_confirmation_for:
+    - app_topology_change
+    - public_api_contract_change
+    - destructive_operation
+    - major_dependency_change
+    - policy_change
+
+skills:
+  registry_path: standards/skills/manifest.yaml
+  allow_cli_native_skills: true
+  prefer_repo_declared_skills: true

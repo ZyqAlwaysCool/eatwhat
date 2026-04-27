@@ -1,0 +1,26 @@
+{
+  "budgetOptions": [
+    { "id": "budget-0-30", "label": "0-30" },
+    { "id": "budget-30-60", "label": "30-60" },
+    { "id": "budget-60-100", "label": "60-100" },
+    { "id": "budget-100-plus", "label": "100+" }
+  ],
+  "diningModes": [
+    { "id": "delivery", "label": "外卖" },
+    { "id": "dine-in", "label": "到店" },
+    { "id": "either", "label": "都可以" }
+  ],
+  "sceneTags": [
+    { "id": "near-home", "label": "家附近" },
+    { "id": "near-office", "label": "公司附近" },
+    { "id": "weekend", "label": "周末可去" },
+    { "id": "no-limit", "label": "不限" }
+  ],
+  "tasteTags": [
+    { "id": "spicy", "label": "辣" },
+    { "id": "light", "label": "清淡" },
+    { "id": "hot", "label": "热食" },
+    { "id": "rice", "label": "米饭" },
+    { "id": "noodles", "label": "面食" }
+  ]
+}

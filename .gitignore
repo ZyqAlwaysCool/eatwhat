@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[oc]
+.pytest_cache/
+.ruff_cache/
+.venv/
+app/api/data/*.json
+app/api/data/*.db
+
+# Node.js
+node_modules/
+app/miniapp/dist/
+app/miniapp/.taro/
+app/miniapp/.cache-home/
+
+# Artifacts
+artifacts/generated/
+logs/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store

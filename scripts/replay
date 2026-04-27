@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Replay entrypoint placeholder."
+echo "Replace this script with project-specific replay logic once request/trace artifacts exist."

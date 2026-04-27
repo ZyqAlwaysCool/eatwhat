@@ -1,0 +1,63 @@
+/* 中文说明：微信开发者工具当前会在编译 Tailwind 产物时卡在部分不兼容的 WXSS 语法，
+   这里先保留最小全局样式，优先打通首页渲染链路，后续再按页面逐步恢复可兼容的 Tailwind 用法。 */
+
+page {
+  min-height: 100%;
+  background: #fffaf5;
+  color: #0f172a;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+}
+
+.app-page {
+  min-height: 100vh;
+  padding: 32rpx 24rpx 48rpx;
+  box-sizing: border-box;
+}
+
+.result-card-pop {
+  animation: result-card-pop 260ms ease-out;
+}
+
+.result-orb-float {
+  animation: result-orb-float 3.8s ease-in-out infinite;
+}
+
+.result-dot-pulse {
+  animation: result-dot-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes result-card-pop {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes result-orb-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes result-dot-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.72;
+    transform: scale(0.92);
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "meal-decision-miniapp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Taro miniapp skeleton for the meal decision product.",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev:weapp": "mkdir -p .cache-home && NODE_ENV=development node ./scripts/run-taro.cjs taro build --type weapp --watch",
+    "build:weapp": "mkdir -p .cache-home && NODE_ENV=production node ./scripts/run-taro.cjs taro build --type weapp",
+    "lint": "eslint --ext .ts,.tsx src config",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tarojs/react": "4.1.11",
+    "@tarojs/shared": "4.1.11",
+    "@tarojs/components": "4.1.11",
+    "@tarojs/helper": "4.1.11",
+    "@tarojs/plugin-framework-react": "4.1.11",
+    "@tarojs/runtime": "4.1.11",
+    "@tarojs/taro": "4.1.11",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-react": "^7.24.1",
+    "babel-preset-taro": "4.1.11",
+    "@tarojs/cli": "4.1.11",
+    "@tarojs/webpack5-runner": "4.1.11",
+    "@types/node": "^20.17.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-taro": "4.1.11",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.2",
+    "vitest": "^2.1.9",
+    "@tarojs/plugin-platform-weapp": "4.1.11"
+  }
+}

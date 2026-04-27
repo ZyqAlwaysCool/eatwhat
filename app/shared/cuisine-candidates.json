@@ -1,0 +1,56 @@
+[
+  {
+    "id": "cuisine-rice-bowl",
+    "title": "盖饭 / 简餐",
+    "description": "适合想快点解决一顿的时候，先从熟悉的简餐里选一家。",
+    "taste_tag_ids": ["rice", "hot"],
+    "scene_tag_ids": ["near-office", "no-limit"],
+    "budget_id": "budget-0-30",
+    "dining_mode_ids": ["delivery", "either"]
+  },
+  {
+    "id": "cuisine-noodles",
+    "title": "面食",
+    "description": "更适合想吃热乎一点、出餐也比较稳定的选择。",
+    "taste_tag_ids": ["noodles", "hot"],
+    "scene_tag_ids": ["near-home", "near-office", "no-limit"],
+    "budget_id": "budget-0-30",
+    "dining_mode_ids": ["delivery", "dine-in", "either"]
+  },
+  {
+    "id": "cuisine-hotpot",
+    "title": "火锅",
+    "description": "适合想吃得更有满足感，或者这顿更偏放松场景的时候。",
+    "taste_tag_ids": ["spicy", "hot"],
+    "scene_tag_ids": ["weekend", "no-limit"],
+    "budget_id": "budget-60-100",
+    "dining_mode_ids": ["dine-in", "either"]
+  },
+  {
+    "id": "cuisine-bbq",
+    "title": "烤肉",
+    "description": "适合更想认真吃一顿，通常更偏到店场景。",
+    "taste_tag_ids": ["hot"],
+    "scene_tag_ids": ["weekend", "no-limit"],
+    "budget_id": "budget-60-100",
+    "dining_mode_ids": ["dine-in", "either"]
+  },
+  {
+    "id": "cuisine-salad",
+    "title": "轻食 / 沙拉",
+    "description": "适合想吃清淡一点，或者今天更想控制负担的时候。",
+    "taste_tag_ids": ["light"],
+    "scene_tag_ids": ["near-office", "no-limit"],
+    "budget_id": "budget-30-60",
+    "dining_mode_ids": ["delivery", "either"]
+  },
+  {
+    "id": "cuisine-dumplings",
+    "title": "饺子 / 馄饨",
+    "description": "适合想吃热食，但又不想太重的时候。",
+    "taste_tag_ids": ["hot"],
+    "scene_tag_ids": ["near-home", "no-limit"],
+    "budget_id": "budget-0-30",
+    "dining_mode_ids": ["delivery", "dine-in", "either"]
+  }
+]

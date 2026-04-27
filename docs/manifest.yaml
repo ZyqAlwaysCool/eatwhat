@@ -1,0 +1,163 @@
+version: 1
+
+documents:
+  - id: docs-index
+    title: 文档索引
+    path: docs/index.md
+    type: navigation
+    status: active
+    source_of_truth: false
+
+  - id: harness-model
+    title: Harness 控制模型
+    path: docs/current/architecture/harness-model.md
+    type: architecture
+    status: active
+    source_of_truth: true
+
+  - id: tech-stack-decision
+    title: 当前技术栈决策
+    path: docs/current/architecture/tech-stack-decision.md
+    type: architecture
+    status: active
+    source_of_truth: true
+
+  - id: product-readme
+    title: 产品当前真相指南
+    path: docs/current/product/README.md
+    type: guide
+    status: active
+    source_of_truth: true
+
+  - id: meal-decision-product-brief
+    title: 今天吃什么产品雏形说明
+    path: docs/current/product/meal-decision-product-brief.md
+    type: product
+    status: active
+    source_of_truth: true
+
+  - id: meal-decision-v0-current-state
+    title: 今天吃什么 V0 当前状态
+    path: docs/current/product/meal-decision-v0-current-state.md
+    type: product
+    status: active
+    source_of_truth: true
+
+  - id: meal-decision-miniapp-lowfi
+    title: 今天吃什么小程序低保真草案
+    path: docs/current/product/meal-decision-miniapp-lowfi.md
+    type: product
+    status: active
+    source_of_truth: true
+
+  - id: architecture-readme
+    title: 架构当前真相指南
+    path: docs/current/architecture/README.md
+    type: guide
+    status: active
+    source_of_truth: true
+
+  - id: meal-decision-delivery-shape
+    title: 今天吃什么落地形态说明
+    path: docs/current/architecture/meal-decision-delivery-shape.md
+    type: architecture
+    status: active
+    source_of_truth: true
+
+  - id: meal-decision-system-current-state
+    title: 今天吃什么系统当前状态
+    path: docs/current/architecture/meal-decision-system-current-state.md
+    type: architecture
+    status: active
+    source_of_truth: true
+
+  - id: wechat-auth-and-user-isolation
+    title: 微信鉴权与用户隔离方案
+    path: docs/current/architecture/wechat-auth-and-user-isolation.md
+    type: architecture
+    status: active
+    source_of_truth: true
+
+  - id: domain-readme
+    title: 领域当前真相指南
+    path: docs/current/domain/README.md
+    type: guide
+    status: active
+    source_of_truth: true
+
+  - id: meal-decision-domain-model
+    title: 今天吃什么领域模型草案
+    path: docs/current/domain/meal-decision-domain-model.md
+    type: domain
+    status: active
+    source_of_truth: true
+
+  - id: contracts-readme
+    title: 契约当前真相指南
+    path: docs/current/contracts/README.md
+    type: guide
+    status: active
+    source_of_truth: true
+
+  - id: meal-decision-api-contract
+    title: 今天吃什么 API 当前契约
+    path: docs/current/contracts/meal-decision-api-contract.md
+    type: contract
+    status: active
+    source_of_truth: true
+
+  - id: runbooks-readme
+    title: 运行手册当前真相指南
+    path: docs/current/runbooks/README.md
+    type: guide
+    status: active
+    source_of_truth: true
+
+  - id: codex-miniapp-development
+    title: Codex 小程序开发运行手册
+    path: docs/current/runbooks/codex-miniapp-development.md
+    type: runbook
+    status: active
+    source_of_truth: true
+
+  - id: miniapp-initialization
+    title: 小程序初始化运行手册
+    path: docs/current/runbooks/miniapp-initialization.md
+    type: runbook
+    status: active
+    source_of_truth: true
+
+  - id: real-device-and-deployment-preflight
+    title: 真机调试与部署前检查
+    path: docs/current/runbooks/real-device-and-deployment-preflight.md
+    type: runbook
+    status: active
+    source_of_truth: true
+
+  - id: adr-guide
+    title: ADR 指南
+    path: docs/adr/README.md
+    type: guide
+    status: active
+    source_of_truth: false
+
+  - id: worklog-guide
+    title: 工作记录指南
+    path: docs/worklog/README.md
+    type: guide
+    status: active
+    source_of_truth: false
+
+  - id: meal-decision-discovery-2026-03-29
+    title: 今天吃什么产品探索记录 2026-03-29
+    path: docs/worklog/2026-03-29-meal-decision-discovery.md
+    type: worklog
+    status: active
+    source_of_truth: false
+
+  - id: archive-guide
+    title: 归档指南
+    path: docs/archive/README.md
+    type: guide
+    status: active
+    source_of_truth: false

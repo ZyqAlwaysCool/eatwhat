@@ -1,0 +1,20 @@
+version: 1
+
+skills:
+  - id: repo-reading
+    source: native
+    ref: builtin
+    when:
+      - task_start
+      - architecture_review
+    required: true
+    notes: Use native repository reading and editing capabilities first.
+
+  - id: taro-react-fastapi-pack
+    source: local
+    ref: standards/taro-react-fastapi
+    when:
+      - project_bootstrap
+      - stack_alignment
+    required: true
+    notes: Use this pack as the default WeChat Mini Program plus FastAPI structure and verification guide.

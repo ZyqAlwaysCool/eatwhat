@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+unset VIRTUAL_ENV
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+MINIAPP_DIR="$ROOT_DIR/app/miniapp"
+API_DIR="$ROOT_DIR/app/api"
+API_ENTRY="$API_DIR/main.py"
+TARGET="${1:-all}"
+source "$ROOT_DIR/scripts/_common.sh"
+
+run_miniapp() {
+  if [[ ! -f "$MINIAPP_DIR/package.json" ]]; then
+    echo "[dev] miniapp project not initialized yet"
+    return 1
+  fi
+
+  (
+    cd "$MINIAPP_DIR"
+    run_pnpm "[dev] pnpm is required for the miniapp but was not found in PATH." dev:weapp
+  )
+}
+
+run_api() {
+  if [[ ! -f "$API_DIR/pyproject.toml" || ! -f "$API_ENTRY" ]]; then
+    echo "[dev] backend project not initialized yet"
+    return 1
+  fi
+
+  (
+    cd "$API_DIR"
+    export PYTHONPATH="${ROOT_DIR}${PYTHONPATH:+:${PYTHONPATH}}"
+    run_uv "[dev] uv is required for the backend but was not found in PATH." run uvicorn app.api.main:app --reload --host 0.0.0.0 --port "${API_PORT:-8000}"
+  )
+}
+
+case "$TARGET" in
+  miniapp)
+    run_miniapp
+    ;;
+  api)
+    run_api
+    ;;
+  all)
+    run_miniapp &
+    MINIAPP_PID=$!
+    run_api &
+    API_PID=$!
+
+    trap 'kill "$MINIAPP_PID" "$API_PID" 2>/dev/null || true' INT TERM EXIT
+    wait "$MINIAPP_PID" "$API_PID"
+    ;;
+  *)
+    echo "Usage: ./scripts/dev [miniapp|api|all]"
+    exit 1
+    ;;
+esac

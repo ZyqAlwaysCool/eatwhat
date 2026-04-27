@@ -1,0 +1,16 @@
+.git
+.gitignore
+.DS_Store
+.cache
+.pytest_cache
+.ruff_cache
+.venv
+node_modules
+app/miniapp/node_modules
+app/miniapp/dist
+app/miniapp/.taro
+app/miniapp/.cache-home
+artifacts
+logs
+app/api/data/*.db
+app/api/data/*.json

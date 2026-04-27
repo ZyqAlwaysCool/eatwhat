@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+unset VIRTUAL_ENV
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+MINIAPP_DIR="$ROOT_DIR/app/miniapp"
+API_DIR="$ROOT_DIR/app/api"
+API_ENTRY="$API_DIR/main.py"
+source "$ROOT_DIR/scripts/_common.sh"
+
+if [[ -f "$MINIAPP_DIR/package.json" ]]; then
+  echo "[test] running miniapp tests"
+  (
+    cd "$MINIAPP_DIR"
+    run_pnpm "[test] pnpm is required for the miniapp but was not found in PATH." test
+  )
+else
+  echo "[test] miniapp project not initialized yet"
+fi
+
+if [[ -f "$API_DIR/pyproject.toml" && -f "$API_ENTRY" ]]; then
+  echo "[test] running backend tests"
+  (
+    cd "$API_DIR"
+    export PYTHONPATH="${ROOT_DIR}${PYTHONPATH:+:${PYTHONPATH}}"
+    run_uv "[test] uv is required for the backend but was not found in PATH." run pytest "$ROOT_DIR/tests"
+  )
+else
+  echo "[test] backend project not initialized yet"
+fi
