@@ -117,6 +117,6 @@ def _is_same_feedback_target(
 def _create_repository() -> HistoryLogRepository:
     settings = get_settings()
     return HistoryLogRepository(
-        database_path=settings.database_path,
+        database_url=settings.database_url,
         legacy_store_path=settings.history_store_path,
     )

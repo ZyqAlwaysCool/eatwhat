@@ -65,5 +65,5 @@ Codex 负责：
 - 最终效果仍应在微信开发者工具中确认
 - 平台限制相关问题需要优先做小范围验证
 - 当前仓库前端建议使用 `Node.js 20 LTS`，后端依赖管理使用 `uv`
-- 当前仓库默认运行入口为根脚本：`./scripts/setup`、`./scripts/dev`、`./scripts/check`
+- 当前仓库默认运行入口为根脚本：`./scripts/setup`、`./scripts/dev`、`./scripts/migrate`、`./scripts/check`
 - 如果要单独进入后端目录执行命令，请以 `app/api` 作为 `uv` 项目根

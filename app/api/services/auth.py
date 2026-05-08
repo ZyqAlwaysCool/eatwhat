@@ -29,7 +29,7 @@ class CurrentUser:
 
 def login_with_wechat(payload: WechatLoginRequest) -> AuthSessionResponse:
     settings = get_settings()
-    repository = AuthRepository(settings.database_path)
+    repository = AuthRepository(settings.database_url)
 
     try:
         exchange_result = exchange_login_code(
@@ -72,7 +72,7 @@ def verify_access_token(token: str) -> CurrentUser:
         )
 
     settings = get_settings()
-    repository = AuthRepository(settings.database_path)
+    repository = AuthRepository(settings.database_url)
     session = repository.get_session(token_hash=_hash_token(token))
 
     if session is None:

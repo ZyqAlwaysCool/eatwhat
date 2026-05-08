@@ -47,6 +47,9 @@ class Settings(BaseModel):
             )
         )
     )
+    database_url: str = Field(
+        default_factory=lambda: os.getenv("DATABASE_URL") or _default_database_url()
+    )
     candidate_store_path: Path = Field(
         default_factory=lambda: Path(
             os.getenv(
@@ -85,3 +88,14 @@ def _default_database_path() -> Path:
             return Path(raw_value).resolve().parent / "meal-decision.db"
 
     return REPO_ROOT / "app/api/data/meal-decision.db"
+
+
+def _default_database_url() -> str:
+    database_path = Path(
+        os.getenv("MEAL_DECISION_DB_PATH", str(_default_database_path()))
+    ).resolve()
+    return f"sqlite:///{database_path}"
+
+
+def is_truthy_env(value: str | None) -> bool:
+    return value is not None and value.strip() != ""

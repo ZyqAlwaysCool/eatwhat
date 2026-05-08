@@ -106,6 +106,6 @@ def _deduplicate_candidates(items: list[CandidateItem]) -> list[CandidateItem]:
 def _create_repository() -> CandidatePoolRepository:
     settings = get_settings()
     return CandidatePoolRepository(
-        database_path=settings.database_path,
+        database_url=settings.database_url,
         legacy_store_path=settings.candidate_store_path,
     )

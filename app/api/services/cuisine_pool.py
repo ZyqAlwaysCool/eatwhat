@@ -67,6 +67,6 @@ def create_cuisine(
 def _create_repository() -> CuisinePoolRepository:
     settings = get_settings()
     return CuisinePoolRepository(
-        database_path=settings.database_path,
+        database_url=settings.database_url,
         legacy_store_path=settings.cuisine_store_path,
     )

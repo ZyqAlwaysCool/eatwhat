@@ -56,19 +56,18 @@
 
 ## 当前数据层事实
 
-当前 V0 默认数据层仍是 SQLite。
+当前 V0 已切换为可配置数据层：
 
-当前数据库文件默认位置：
+- 生产必需：MySQL（通过 `DATABASE_URL` 配置）
+- 本地默认：SQLite fallback（用于快速联调）
 
-- `app/api/data/meal-decision.db`
-
-当前仍保留旧 JSON 兼容字段来源：
+当前后端仍保留旧 JSON 兼容字段来源：
 
 - `app/api/data/candidates.json`
 - `app/api/data/cuisines.json`
 - `app/api/data/history.json`
 
-这些旧 JSON 现在主要承担历史兼容与迁移入口角色，主存储已切到 SQLite。
+这些旧 JSON 主要承担一次性迁移入口角色，不再是推荐的长期主存储。
 
 ## 当前运行入口
 
@@ -97,12 +96,18 @@
 ### 后端
 
 - `APP_ENV`
+- `DATABASE_URL`
 - `MEAL_DECISION_DB_PATH`
 - `WECHAT_LOGIN_MODE`
 - `WECHAT_APP_ID`
 - `WECHAT_APP_SECRET`
 - `AUTH_SESSION_TTL_HOURS`
 - `WECHAT_REQUEST_TIMEOUT_SECONDS`
+
+其中：
+
+- `DATABASE_URL`：生产环境主数据源（必需指向 MySQL）
+- `MEAL_DECISION_DB_PATH`：仅作为本地 SQLite fallback
 
 ## 当前鉴权与隔离事实
 
@@ -127,8 +132,8 @@
 
 但当前还未完成的线上必要条件包括：
 
-- 正式域名
-- HTTPS
-- 微信后台合法域名配置
+- 微信云托管环境与服务创建
+- 小程序与目标云环境关联
+- 小程序 `callContainer` 联通验证
 - 正式 `code2Session` 联调
-- 线上数据库与备份策略
+- 线上 MySQL 与备份策略

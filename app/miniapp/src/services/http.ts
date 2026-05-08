@@ -7,6 +7,8 @@ import {
 } from '@/services/auth'
 
 const apiBaseUrl = process.env.TARO_APP_API_BASE_URL || 'http://localhost:8000'
+const useCallContainer = process.env.TARO_APP_USE_CALL_CONTAINER === 'true'
+const cloudRunServer = process.env.TARO_APP_CLOUDRUN_SERVER || 'meal-decision-api'
 
 type RequestOptions = {
   method?: 'GET' | 'POST'
@@ -28,12 +30,14 @@ export async function rawRequest<T>(
     headers.Authorization = authorization
   }
 
-  const response = await Taro.request<T>({
-    url: `${apiBaseUrl}${url}`,
-    method: options.method ?? 'GET',
-    data: options.data,
-    header: headers
-  })
+  const response = useCallContainer
+    ? await requestByCallContainer<T>(url, options, headers)
+    : await Taro.request<T>({
+        url: `${apiBaseUrl}${url}`,
+        method: options.method ?? 'GET',
+        data: options.data,
+        header: headers
+      })
 
   if (response.statusCode < 200 || response.statusCode >= 300) {
     const message =
@@ -48,6 +52,44 @@ export async function rawRequest<T>(
   }
 
   return response.data
+}
+
+async function requestByCallContainer<T>(
+  url: string,
+  options: RequestOptions,
+  headers: Record<string, string>
+): Promise<{
+  statusCode: number
+  data: T & { detail?: string }
+}> {
+  const wxCloud = (globalThis as typeof globalThis & {
+    wx?: {
+      cloud?: {
+        callContainer: (options: {
+          config: { env: string }
+          path: string
+          method: 'GET' | 'POST'
+          header: Record<string, string>
+          data?: Record<string, unknown>
+        }) => Promise<{ statusCode: number; data: T & { detail?: string } }>
+      }
+    }
+  }).wx?.cloud
+
+  if (!wxCloud?.callContainer) {
+    throw new Error('当前环境不支持云托管 callContainer，请检查基础库或配置。')
+  }
+
+  return wxCloud.callContainer({
+    config: { env: process.env.TARO_APP_CLOUDRUN_ENV || 'prod' },
+    path: url,
+    method: options.method ?? 'GET',
+    header: {
+      ...headers,
+      'X-WX-SERVICE': cloudRunServer
+    },
+    data: options.data
+  })
 }
 
 export async function request<T>(

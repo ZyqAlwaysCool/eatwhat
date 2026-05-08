@@ -31,7 +31,7 @@
 
 ## 数据模型
 
-当前 SQLite 中新增了三类鉴权表：
+当前 SQL 数据层中包含三类鉴权表（生产推荐 MySQL）：
 
 - `users`
 - `wechat_accounts`
@@ -96,7 +96,7 @@
 - 首个真实登录用户访问对应业务表时，会一次性接管这批旧数据
 - 接管后数据正式归属该用户
 
-这个逻辑只用于本地升级过渡，不应作为正式共享逻辑理解。
+这个逻辑主要用于本地升级过渡，不应作为正式共享逻辑理解。
 
 ## 前端实现
 
@@ -144,11 +144,17 @@
 - `WECHAT_APP_SECRET`：微信小程序 AppSecret
 - `WECHAT_LOGIN_MODE`：`official` 或 `mock`
 - `AUTH_SESSION_TTL_HOURS`：后端会话有效期，默认 `720`
-- `MEAL_DECISION_DB_PATH`：SQLite 文件路径
+- `DATABASE_URL`：SQL 数据库连接地址（生产必需指向 MySQL）
+- `MEAL_DECISION_DB_PATH`：本地 SQLite fallback 路径
 
 ### 前端
 
 - `MEAL_DECISION_API_BASE_URL`：小程序访问后端的基础地址
+- `MEAL_DECISION_USE_CALL_CONTAINER`：是否启用云托管 `callContainer`
+- `MEAL_DECISION_CLOUDRUN_SERVER`：云托管服务名
+- `MEAL_DECISION_CLOUDRUN_ENV`：云托管环境标识
+
+当启用 `callContainer` 时，前端会优先走微信云托管私有协议。
 
 ## 本地开发说明
 
@@ -163,23 +169,17 @@
 - `WECHAT_LOGIN_MODE=official`
 - 并正确提供 `WECHAT_APP_ID` 与 `WECHAT_APP_SECRET`
 
-## ECS 部署结论
+## 云托管部署结论
 
-阿里云公网 ECS 可以作为当前阶段部署服务器，满足要求。
+当前代码已经适配微信云托管容器部署：
 
-适合当前项目的原因：
+- 后端容器启动端口支持读取 `PORT`（默认回落 `8000`）
+- 后端启动时会自动完成表结构准备
+- 生产环境缺失 `DATABASE_URL` 或仍使用 SQLite 时会拒绝启动
+- 小程序端支持 `callContainer` 私有协议访问
+- 生产数据层要求 `DATABASE_URL` 指向 MySQL
 
-- 后端已容器化，可直接跑 FastAPI 服务
-- V0 当前数据层仍可先使用单机 SQLite 做受控验证
-- 后续可平滑迁移到 PostgreSQL / RDS
-
-但要满足小程序正式联通，必须同时满足以下条件：
-
-1. 有域名，不建议直接使用裸 IP
-2. 域名配置 HTTPS
-3. 微信小程序后台把该域名加入 `request` 合法域名
-4. ECS 安全组只开放必要端口
-5. `WECHAT_APP_SECRET` 仅放服务端环境变量，不进前端产物
+如果继续使用公网域名模式，仍需要遵循微信合法域名规则；如果走 `callContainer`，可减少公网域名依赖。
 
 ## 当前安全边界
 

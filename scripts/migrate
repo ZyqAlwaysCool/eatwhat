@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+unset VIRTUAL_ENV
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+API_DIR="$ROOT_DIR/app/api"
+API_ENTRY="$API_DIR/main.py"
+source "$ROOT_DIR/scripts/_common.sh"
+
+if [[ -f "$API_DIR/pyproject.toml" && -f "$API_ENTRY" ]]; then
+  echo "[migrate] preparing database schema"
+  (
+    cd "$API_DIR"
+    export PYTHONPATH="${ROOT_DIR}${PYTHONPATH:+:${PYTHONPATH}}"
+    run_uv "[migrate] uv is required for the backend but was not found in PATH." run python -m app.api.scripts.migrate
+  )
+else
+  echo "[migrate] backend project not initialized yet"
+fi
