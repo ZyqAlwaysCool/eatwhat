@@ -9,14 +9,14 @@ WORKDIR /workspace
 
 RUN pip install --no-cache-dir uv
 
-COPY app/api/pyproject.toml app/api/uv.lock ./app/api/
+COPY pyproject.toml uv.lock ./app/api/
 RUN uv sync --project app/api --frozen --no-dev
 
-COPY app ./app
+COPY . ./app/api
 
-EXPOSE 8000
+EXPOSE 8080
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health')"
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 CMD \
+  sh -c "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:${PORT:-8080}/health')\""
 
-CMD ["sh", "-c", "uv run --project app/api uvicorn app.api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "uv run --project app/api uvicorn app.api.main:app --host 0.0.0.0 --port ${PORT:-8080}"]
