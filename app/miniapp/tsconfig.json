@@ -13,6 +13,7 @@
     "types": ["node", "vitest/globals"],
     "paths": {
       "@/*": ["src/*"],
+      "@catalog/*": ["../api/catalog/*"],
       "@shared/*": ["../shared/*"]
     }
   },

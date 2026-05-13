@@ -20,6 +20,7 @@ export default defineConfig<'webpack5'>(async (merge, { mode }) => {
     plugins: ['@tarojs/plugin-framework-react'],
     alias: {
       '@': path.resolve(__dirname, '..', 'src'),
+      '@catalog': path.resolve(__dirname, '..', '..', 'api', 'catalog'),
       '@shared': path.resolve(__dirname, '..', '..', 'shared')
     },
     mini: {

@@ -24,8 +24,10 @@ export default {
     TARO_APP_CLOUDRUN_ENV: JSON.stringify(defaultCloudRunEnv)
   },
   mini: {
+    // Main-package optimization has caused prod-only runtime issues on some
+    // WeChat clients (e.g. stack overflow in app-service); keep disabled until stable.
     optimizeMainPackage: {
-      enable: true
+      enable: false
     }
   }
 } satisfies UserConfigExport<'webpack5'>

@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 CATALOG_PATH = (
-    Path(__file__).resolve().parents[2] / "shared" / "cuisine-candidates.json"
+    Path(__file__).resolve().parent.parent / "catalog" / "cuisine-candidates.json"
 )
 
 

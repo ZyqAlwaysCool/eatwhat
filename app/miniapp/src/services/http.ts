@@ -1,95 +1,12 @@
-import Taro from '@tarojs/taro'
-
-import {
-  clearStoredSession,
-  ensureAuthenticated,
-  getAuthorizationHeader
-} from '@/services/auth'
-
-const apiBaseUrl = process.env.TARO_APP_API_BASE_URL || 'http://localhost:8000'
-const useCallContainer = process.env.TARO_APP_USE_CALL_CONTAINER === 'true'
-const cloudRunServer = process.env.TARO_APP_CLOUDRUN_SERVER || 'meal-decision-api'
+import { clearStoredSession } from '@/services/auth-state'
+import { ensureAuthenticated } from '@/services/auth'
+import { rawRequest } from '@/services/http-raw'
 
 type RequestOptions = {
   method?: 'GET' | 'POST'
   data?: Record<string, unknown>
   auth?: boolean
   retryOnUnauthorized?: boolean
-}
-
-export async function rawRequest<T>(
-  url: string,
-  options: RequestOptions = {}
-): Promise<T> {
-  const headers: Record<string, string> = {
-    'content-type': 'application/json'
-  }
-  const authorization = options.auth === false ? null : getAuthorizationHeader()
-
-  if (authorization) {
-    headers.Authorization = authorization
-  }
-
-  const response = useCallContainer
-    ? await requestByCallContainer<T>(url, options, headers)
-    : await Taro.request<T>({
-        url: `${apiBaseUrl}${url}`,
-        method: options.method ?? 'GET',
-        data: options.data,
-        header: headers
-      })
-
-  if (response.statusCode < 200 || response.statusCode >= 300) {
-    const message =
-      typeof response.data === 'object' &&
-      response.data !== null &&
-      'detail' in response.data &&
-      typeof response.data.detail === 'string'
-        ? response.data.detail
-        : `Request failed with status ${response.statusCode}`
-
-    throw new Error(message)
-  }
-
-  return response.data
-}
-
-async function requestByCallContainer<T>(
-  url: string,
-  options: RequestOptions,
-  headers: Record<string, string>
-): Promise<{
-  statusCode: number
-  data: T & { detail?: string }
-}> {
-  const wxCloud = (globalThis as typeof globalThis & {
-    wx?: {
-      cloud?: {
-        callContainer: (options: {
-          config: { env: string }
-          path: string
-          method: 'GET' | 'POST'
-          header: Record<string, string>
-          data?: Record<string, unknown>
-        }) => Promise<{ statusCode: number; data: T & { detail?: string } }>
-      }
-    }
-  }).wx?.cloud
-
-  if (!wxCloud?.callContainer) {
-    throw new Error('当前环境不支持云托管 callContainer，请检查基础库或配置。')
-  }
-
-  return wxCloud.callContainer({
-    config: { env: process.env.TARO_APP_CLOUDRUN_ENV || 'prod' },
-    path: url,
-    method: options.method ?? 'GET',
-    header: {
-      ...headers,
-      'X-WX-SERVICE': cloudRunServer
-    },
-    data: options.data
-  })
 }
 
 export async function request<T>(

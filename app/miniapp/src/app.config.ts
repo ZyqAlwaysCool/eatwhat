@@ -1,4 +1,6 @@
 export default defineAppConfig({
+  // @ts-expect-error WeChat app.json field for wx.cloud / callContainer (omitted from Taro AppConfig).
+  cloud: true,
   pages: [
     'pages/home/index',
     'pages/filters/index',

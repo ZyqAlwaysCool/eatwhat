@@ -1,4 +1,4 @@
-import cuisineCandidates from '@shared/cuisine-candidates.json'
+import cuisineCandidates from '@catalog/cuisine-candidates.json'
 
 export type BuiltInCuisineCandidate = {
   id: string

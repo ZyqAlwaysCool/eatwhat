@@ -9,6 +9,7 @@ from app.api.repositories.auth import AuthRepository
 from app.api.repositories.candidate_pool import CandidatePoolRepository
 from app.api.repositories.cuisine_pool import CuisinePoolRepository
 from app.api.repositories.history_log import HistoryLogRepository
+from app.api.services.cuisine_catalog import CATALOG_PATH
 
 
 def validate_runtime_settings(settings: Settings) -> None:
@@ -40,6 +41,12 @@ def validate_runtime_settings(settings: Settings) -> None:
     if settings.wechat_login_mode != "official":
         raise RuntimeError(
             "Production runtime must set WECHAT_LOGIN_MODE=official for WeChat login."
+        )
+
+    if not CATALOG_PATH.is_file():
+        raise RuntimeError(
+            "Production runtime is missing built-in cuisine catalog file: "
+            f"{CATALOG_PATH}."
         )
 
 
